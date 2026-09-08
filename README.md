@@ -1,3 +1,14 @@
+---
+title: HR Policy Agentic RAG Copilot
+emoji: 📋
+colorFrom: yellow
+colorTo: orange
+sdk: docker
+app_port: 8080
+pinned: false
+short_description: Agentic RAG copilot for internal HR policy questions
+---
+
 # Enterprise HR Policy & Employee Support Agentic RAG Copilot
 
 An end-to-end Forward Deployed Engineer (FDE) project that converts an Agentic RAG workflow into a deployable internal HR product using LangGraph, FastAPI, Pinecone, OpenAI, Tavily, HTML, CSS, and JavaScript.
