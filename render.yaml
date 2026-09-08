@@ -58,6 +58,16 @@ services:
       - key: MAX_RETRIES
         value: 1
 
+      # ---- LangSmith tracing (optional) ----
+      - key: LANGCHAIN_TRACING_V2
+        value: "true"
+      - key: LANGSMITH_ENDPOINT
+        value: https://api.smith.langchain.com
+      - key: LANGCHAIN_PROJECT
+        value: FDE-HR_project
+      - key: LANGCHAIN_API_KEY
+        sync: false
+
       # ---- Security ----
       - key: ADMIN_API_KEY
         generateValue: true
