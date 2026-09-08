@@ -4,7 +4,6 @@ from pinecone import Pinecone , ServerlessSpec
 from langchain_openai import OpenAIEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from app.core.config import get_settings
-from langchain_huggingface import HuggingFaceEmbeddings
 
 
 logger = logging.getLogger(__name__)
@@ -71,6 +70,17 @@ def _build_openai_embeddings():
 
 
 def _build_huggingface_embeddings():
+    # Imported lazily: langchain-huggingface pulls in sentence-transformers/torch,
+    # a heavy install that isn't needed unless EMBEDDING_PROVIDER=huggingface is
+    # actually selected (the default provider is "openai").
+    try:
+        from langchain_huggingface import HuggingFaceEmbeddings
+    except ImportError as exc:
+        raise RuntimeError(
+            "EMBEDDING_PROVIDER is 'huggingface' but the 'langchain-huggingface' "
+            "package isn't installed. Add it (and sentence-transformers) to "
+            "requirements.txt, or set EMBEDDING_PROVIDER=openai."
+        ) from exc
     return HuggingFaceEmbeddings(
         model_name=settings.huggingface_embedding_model,
         encode_kwargs={"normalize_embeddings": True},
