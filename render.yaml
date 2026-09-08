@@ -33,8 +33,10 @@ services:
         sync: false
 
       # ---- Embeddings ----
+      # "huggingface" runs locally, no API key needed — switch to "openai"
+      # once an OPENAI_API_KEY is set below (cheap, and slightly better quality).
       - key: EMBEDDING_PROVIDER
-        value: openai
+        value: huggingface
       - key: EMBEDDING_MODEL
         value: text-embedding-3-small
       - key: HUGGINGFACE_EMBEDDING_MODEL
