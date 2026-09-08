@@ -8,7 +8,12 @@ ENV PORT=8080
 
 COPY requirements.txt .
 
+# Install the CPU-only torch build first (the default PyPI wheel bundles
+# multi-GB CUDA/nvidia-* packages meant for GPU hosts — irrelevant here and
+# heavy enough on its own to blow past a 512MB container). Once it's present,
+# installing requirements.txt sees torch already satisfied and won't replace it.
 RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu \
     && pip install --no-cache-dir -r requirements.txt
 
 COPY . .
